@@ -9,8 +9,8 @@ Build-Depends:
  dkms,
 Standards-Version: 4.1.4
 Homepage: https://anbox.io
-Vcs-Browser: https://github.com/anbox/anbox-modules
-Vcs-Git: https://github.com/anbox/anbox-modules.git
+Vcs-Browser: https://github.com/PuspenduBanerjee/anbox-modules
+Vcs-Git: https://github.com/PuspenduBanerjee/anbox-modules.git
 
 Package: anbox-modules-dkms
 Architecture: all
