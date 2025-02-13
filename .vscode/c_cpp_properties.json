@@ -1,0 +1,36 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/src/linux-headers-6.13.0-061300/**",
+                "/usr/src/linux-headers-6.13.0-061300/include/linux",
+                "/usr/src/linux-headers-6.13.0-061300-generic/**",
+                "/usr/src/linux-headers-6.13.0-061300/include",
+                "/usr/src/linux-headers-6.13.0-061300/include",
+                "/usr/src/linux-headers-6.13.0-061300-generic/include",
+                "/usr/src/linux-headers-6.13.0-061300/arch/x86/include",
+                "/usr/src/linux-headers-6.13.0-061300-generic/include/generated/uapi",
+                "/usr/lib/gcc/x86_64-linux-gnu/14/include",
+                "${workspaceFolder}/binder",
+                "${workspaceFolder}/ashmem"
+            ],
+            "defines": [
+                "__GNUC__",
+                "__KERNEL__",
+                "MODULE"
+            ],
+            // "compilerArgs": [
+            //     "-nostdinc",
+            //     "-include", "/usr/src/linux-headers-6.13.0-061300-generic/include/linux/kconfig.h",
+            //     "-include", "/usr/src/linux-headers-6.13.0-061300-generic/include/linux/compiler_types.h"
+            // ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "${default}",
+            "cppStandard": "${default}",
+            "intelliSenseMode": "linux-gcc-x64"
+        }
+    ],
+    "version": 4
+}

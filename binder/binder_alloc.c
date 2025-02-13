@@ -988,8 +988,8 @@ void binder_alloc_vma_close(struct binder_alloc *alloc)
  */
 enum lru_status binder_alloc_free_page(struct list_head *item,
 				       struct list_lru_one *lru,
-				       spinlock_t *lock,
-				       void *cb_arg)
+				       spinlock_t *lock, void *cb_arg)
+
 	__must_hold(lock)
 {
 	struct mm_struct *mm = NULL;
@@ -1055,6 +1055,13 @@ err_get_alloc_mutex_failed:
 	return LRU_SKIP;
 }
 
+
+enum lru_status binder_alloc_free_page_2(struct list_head *item,
+	struct list_lru_one *lru, void *cb_arg){
+		return binder_alloc_free_page(item, lru, NULL, cb_arg);
+	}
+
+
 static unsigned long
 binder_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
 {
@@ -1066,9 +1073,14 @@ static unsigned long
 binder_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 {
 	unsigned long ret;
-
-	ret = list_lru_walk(&binder_alloc_lru, binder_alloc_free_page,
-			    NULL, sc->nr_to_scan);
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,11,0))
+		ret = list_lru_walk(&binder_alloc_lru, binder_alloc_free_page_2,
+			NULL, sc->nr_to_scan);
+	#else
+		ret = list_lru_walk(&binder_alloc_lru, binder_alloc_free_page,
+			NULL, sc->nr_to_scan);
+#endif
+	
 	return ret;
 }
 

@@ -61,6 +61,7 @@
 #include <linux/uaccess.h>
 #include <linux/pid_namespace.h>
 #include <linux/security.h>
+#include <linux/sched.h>
 #include <linux/spinlock.h>
 #include <linux/ratelimit.h>
 #include <linux/syscalls.h>
@@ -3128,7 +3129,21 @@ static void binder_transaction(struct binder_proc *proc,
 		u32 secid;
 		size_t added_size;
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 11, 0)
+		/*
+		 * Get the security context ID (secid) of the target node.
+		 * This is necessary for security checks when transferring
+		 * binder objects between processes.
+		 */
+		secid = target_node->txn_security_ctx;
+
+#elif LINUX_VERSION_CODE >= KERNEL_VERSION(5, 13, 0)
+		/* 
+		 * Get the security context ID (secid) of the task.
+		 * This is necessary for security checks when transferring
+		 * binder objects between processes.
+		 */
 		security_task_getsecid_obj(proc->tsk, &secid);
 #else
 		security_task_getsecid(proc->tsk, &secid);
