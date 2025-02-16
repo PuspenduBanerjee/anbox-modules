@@ -1073,7 +1073,7 @@ static unsigned long
 binder_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
 {
 	unsigned long ret;
-	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,11,0))
+	#if (LINUX_VERSION_CODE >= KERNEL_VERSION(6,13,0))
 		ret = list_lru_walk(&binder_alloc_lru, binder_alloc_free_page_2,
 			NULL, sc->nr_to_scan);
 	#else

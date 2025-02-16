@@ -8,6 +8,7 @@
         "ratelimit.h": "c",
         "list_lru.h": "c",
         "spinlock.h": "c",
-        "signal.h": "c"
+        "signal.h": "c",
+        "sched.h": "c"
     }
 }
